@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I"]  # Enable errors, formatting, import sort
+ignore = ["E501"]         # Example: ignore line too long
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
