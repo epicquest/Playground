@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict, field_serializer
 
 
 class WeatherRequest(BaseModel):
@@ -16,9 +16,9 @@ class WeatherResponse(BaseModel):
     humidity: int
     timestamp: datetime
 
-    class Config:
-        json_encoders = {datetime: lambda v: v.isoformat()}
-
+    @field_serializer('timestamp')
+    def serialize_timestamp(self, value: datetime) -> str:
+        return value.isoformat()
 
 class WeatherData(BaseModel):
     temperature: float

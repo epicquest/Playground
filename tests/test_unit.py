@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 from unittest.mock import AsyncMock, patch, MagicMock
 from app.services import WeatherService, MockWeatherService
 from app.models import WeatherData, WeatherRequest, WeatherResponse
@@ -91,7 +90,8 @@ class TestModels:
             timestamp=datetime(2024, 1, 1, 12, 0, 0)
         )
 
-        data = response.model_dump()
+        data = response.model_dump(mode="json")
         assert data["city"] == "London"
         assert data["temperature"] == 20.5
-        assert isinstance(data["timestamp"], datetime)
+        assert isinstance(data["timestamp"], str)
+        assert data["timestamp"] == "2024-01-01T12:00:00"

@@ -5,7 +5,8 @@ Suite Setup    Create Session    api    http://localhost:8000
 Suite Teardown    Delete All Sessions
 
 *** Variables ***
-${BASE_URL}    http://localhost:8000
+${BASE_URL}    https://playground-rukf.onrender.com/
+#${BASE_URL}    http://localhost:8000
 
 *** Test Cases ***
 Health Check Test
