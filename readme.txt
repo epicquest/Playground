@@ -73,3 +73,6 @@ ruff	Linting, formatting	  ✅ Super fast	         Replaces flake8, isort, more
 pylint	Deep static analysis  ❌ Slower	             Very thorough, opinionated
 black	Auto-formatting	      ✅	                 Works great with ruff
 mypy	Static type checking  ✅	                 Use if you use type hints
+
+
+https://playground-rukf.onrender.com/

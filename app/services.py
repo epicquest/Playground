@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 class WeatherService:
     def __init__(self, api_key: str = "dummy_key"):
         self.api_key = api_key
-        print(f"test: {api_key}")
+        logging.debug(f"Using key: {api_key}")
         self.base_url = "http://api.openweathermap.org/data/2.5/weather"
 
     async def get_weather(
