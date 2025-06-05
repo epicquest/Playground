@@ -1,12 +1,17 @@
 *** Settings ***
 Library    RequestsLibrary
 Library    Collections
-Suite Setup    Create Session    api    http://localhost:8000
+
+Suite Setup       Setup API Session
 Suite Teardown    Delete All Sessions
 
 *** Variables ***
 ${BASE_URL}    https://playground-rukf.onrender.com/
 #${BASE_URL}    http://localhost:8000
+
+*** Keywords ***
+Setup API Session
+    Create Session    api    ${BASE_URL}
 
 *** Test Cases ***
 Health Check Test
