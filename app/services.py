@@ -1,18 +1,38 @@
+# pylint: disable=too-few-public-methods
+"""
+Services module.
+
+This script contains async communication with external api and mocked version of service.
+"""
+
 import asyncio
 import logging
 from typing import Optional
 
 import aiohttp
+from fastapi import HTTPException
 
 from app.models import WeatherData
 
 logger = logging.getLogger(__name__)
 
+"""
+Services class.
+"""
+
 
 class WeatherService:
+    """
+    Service for fetching weather data from OpenWeatherMap API.
+
+    Attributes:
+        api_key (str): API key for authentication.
+        base_url (str): Base URL for the weather API endpoint.
+    """
+
     def __init__(self, api_key: str = "dummy_key"):
         self.api_key = api_key
-        logging.debug(f"Using key: {api_key}")
+        logging.debug("Using key: %s", api_key)
         self.base_url = "http://api.openweathermap.org/data/2.5/weather"
 
     async def get_weather(
@@ -33,12 +53,15 @@ class WeatherService:
                             description=data["weather"][0]["description"],
                             humidity=data["main"]["humidity"],
                         )
-                    else:
-                        logger.error(f"API error: {response.status}")
-                        raise Exception(f"Weather API error: {response.status}")
+                    logger.error("API error: %s", response.status)
+                    raise HTTPException(
+                        status_code=500, detail=f"Weather API error: {response.status}"
+                    )
             except aiohttp.ClientError as e:
-                logger.error(f"Network error: {e}")
-                raise Exception(f"Network error: {str(e)}")
+                logger.error("Network error:  %s", e)
+                raise HTTPException(
+                    status_code=500, detail=f"Network error: {str(e)}"
+                ) from e
 
 
 class MockWeatherService(WeatherService):

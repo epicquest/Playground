@@ -58,7 +58,7 @@ python -m app.flows
 #LINT-FORMAT
 
 # Lint code
-ruff app/
+ruff check app/
 #ruff --fix app/
 pylint app/
 mypy app/
