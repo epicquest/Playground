@@ -11,8 +11,7 @@ from prefect import flow, task
 from app.main import get_weather_service
 from app.models import WeatherData
 
-
-@task
+@task(name="Fetch Weather Data", retries=2, retry_delay_seconds=5)
 async def fetch_weather_task(city: str, country_code: str | None = None) -> WeatherData:
     """Prefect task to fetch weather data"""
     service = get_weather_service()
